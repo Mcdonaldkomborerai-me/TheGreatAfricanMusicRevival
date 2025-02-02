@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>The Great African Music Revival</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    img {
+      height: 250px;
+      width: auto;
+    }
+
+    h1 {
+      background-color: chocolate;
+      text-align: center;
+    }
+
+    h3 {
+      margin-top: 25px;
+      text-align: center;
+      color: black;
+      background-color: orange;
+    }
+
+    h5 {
+      text-align: center;
+      color: white;
+    }
+
+    h6 {
+      text-align: center;
+      color: white;
+    }
+
+    nav {
+      background-color: black;
+      color: #fff;
+      padding: 10px 0;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    section {
+      background-color: rgba(210, 105, 30, 0.712);
+      color: black;
+      padding: 50px;
+      padding-right: 200px;
+      margin-left: 100px;
+      margin-right: 100px;
+    }
+
+    #devTeam {
+      background-color: black;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    footer {
+      background-color: black;
+      color: #000000;
+      height: 100%;
+      width: 190px;
+      margin: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      padding-right: 30px;
+      padding-top: 10px;
+      padding-left: 20px;
+    }
+
+    footer p {
+      text-align: center;
+      font-size: 10px;
+      color: orange;
+    }
+
+    #logo {
+      text-align: center;
+      margin-right: 15px;
+      padding-right: 10px;
+      margin-top: 0px;
+      width: 150px;
+      height: auto;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      padding-bottom: 5px;
+    }
+
+    .gallery,
+    .music {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .gallery img,
+    .music img {
+      width: 200px;
+      /* Increase the width */
+      height: auto;
+      cursor: pointer;
+      transition: opacity 0.3s;
+      margin-right: 15px;
+    }
+
+    .gallery img.dimmed,
+    .music img.dimmed {
+      opacity: 0.3;
+    }
+
+    .lightbox,
+    .music-player {
+      display: none;
+      position: fixed;
+      top: 10%;
+      left: 10%;
+      width: 80%;
+      height: 80%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 1000;
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      /* Increase the max-width */
+      max-height: 100%;
+      /* Increase the max-height */
+      object-fit: cover;
+      /* Ensure the image covers the lightbox without distortion */
+    }
+
+    .lightbox .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .lightbox .prev,
+    .lightbox .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .lightbox .prev {
+      left: 10px;
+    }
+
+    .lightbox .next {
+      right: 10px;
+    }
+
+    .music-player {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .music-player-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .music-player-controls button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 5px;
+      background: #ccc;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    .progress-bar div {
+      height: 100%;
+      background: #f00;
+    }
+
+    .song-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .song-list li {
+      padding: 5px;
+      cursor: pointer;
+      color: black;
+    }
+
+    .song-list li.active {
+      background: orange;
+      font-weight: bold;
+    }
+
+    .album-controls {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .album-controls button {
+      background-color: orange;
+      border: none;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <h1>The Great African Music Revival</h1>
+    <br />
+    <h5>
+      Making positive impact in the world through music... bringing back
+    </h5>
+    <h5>hope to the hopeless, spreading love, inspiring greatness and</h5>
+    <h5>cheering up the hearts of many.</h5>
+    <br />
+  </nav>
+  <main>
+
+    <section id="about">
+      <h3>About</h3>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card" style="width: 18rem">
+              <img src="images/africa_shaped_instruments.jpeg" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">African Shaped Instruments</h5>
+                <p class="card-text">
+                  THE GREAT AFRICAN MUSIC REVIVAL is a non-profit organisation
+                  that aims to help children and the youths in disadvantaged
+                  communities reach their full potential through the power of
+                  making music. As music and performing arts serve as vital components of
+                  cultural expression and personal development in Africa. They
+                  not only provide avenues for creativity and self-discovery but
+                  also enhance social skills, emotional intelligence and
+                  academic performance. However, access to quality music and
+                  performing arts education remains limited for many young
+                  individuals, particularly those in underserved communities for
+                  example the rural areas.
+                </p>
+                <a href="documents/THE_GREAT_AFRICAN_MUSIC_PROJECT.pdf" class="btn btn-primary" target="_blank">Read
+                  More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card" style="width: 18rem">
+              <img src="images/african_drumming.jpeg" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">African Drumming</h5>
+                <p class="card-text">
+
+                  <strong><u>Our Vision</u></strong> <br>
+                  To inspire and connect communities through the transformative power of arts and culture, fostering
+                  creativity, inclusivity, and lifelong engagement. We envision a world where artistic expression is
+                  accessible to all, where diverse voices are celebrated, and where culture serves as a bridge for
+                  understanding and innovation.
+
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card" style="width: 18rem">
+              <img src="images/african_dance.jpeg" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">African Dance</h5>
+                <p class="card-text">
+
+                  <strong><u> Our Mission </u></strong> <br>
+                  Our mission as The Great African Music Revival is to deliver
+                  music to the people not just as a form of art but as a vital
+                  component that has the power to nurture minds of young people.
+                  Our mission is to ensure that every child particularly the
+                  young people in marginalized communities has the opportunity
+                  to excel both academically and creatively through the
+                  immense power of music.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </section>
+
+    <section id="getInvolved">
+      <h3>Get Involved</h3>
+      <p>
+        We are always looking for volunteers to help us make our vision a
+        reality. We'll help you find a way to volunteer that best suits you. We're excited to have you join the team!
+      </p>
+      <div style="float: left; margin-right: 20px;">
+        <img src="images/african_map_made_out_of_instruments.jpeg" alt="" style="height: 100px; width: auto;">
+      </div>
+      <ul style="margin-left: 220px;"></ul>
+      <li>We offer free keyboard, guitar, drum and marimba lessons.</li>
+      <li>We offer free studio sessions to upcoming artists.</li>
+      <li>We advocate for music education.</li>
+      <li>We advocate for mental health wellness through music.</li>
+      </ul>
+      <br>
+      <p>Call Us:</p>
+      <p>+27684230557</p>
+      <p>+263777790744</p>
+      <p>Email Us:</p>
+      <p>thegreatafricanmusicrevival@gmail.com <a href="mailto:thegreatafricanmusicrevival@gmail.com">Send Email</a></p>
+      <hr>
+     <p>Department of Social Development Registration Number:<strong><u></u> 310-486 NPO</u></strong></p> 
+     <hr>
+
+    </section>
+
+    <section id="music">
+      <h3>Music</h3>
+      <p>
+        Music is a powerful tool that can be used to change the world and
+        bring people together. It has the power to heal, inspire, and uplift
+        people in ways that words alone cannot. At The Great African Music
+        Revival, we believe that music is a universal language that can be
+        used to bridge cultural divides and create positive change in the
+        world. We are committed to using music as a force for good and
+        empowering young people to reach their full potential through the
+        power of music.
+      </p>
+      <hr>
+      <div class="music">
+        <div class="album" data-songs='[
+          {"src": "songs/album1/01 Ckelda.mp3", "title": "Ckelda", "duration": "3:45"},
+          {"src": "songs/album1/02 Moto we rudo Faray The Great ft Saidi.mp3", "title": "Moto we rudo Faray The Great ft Saidi", "duration": "4:20"},
+          {"src": "songs/album1/05 Tabudirira.mp3", "title": "Tabudirira", "duration": "5:10"}
+        ]'>
+          <img src="songs/album1/MotoThumb.png" alt="Album 1">
+          <p>Foundations(Moto werudo)</p>
+        </div>
+        <div class="album" data-songs='[
+          {"src": "songs/album2/Kunanga Faray the Great.mp3", "title": "Kunyanga", "duration": "3:30"},
+          {"src": "songs/album2/Majorie- Faray the Great.mp3", "title": "Majorie", "duration": "4:00"},
+          {"src": "songs/album2/Song of Hope.mp3", "title": "Song of Hope", "duration": "4:50"}
+        ]'>
+          <img src="songs/album2/KunyangaThumb.png" alt="Album 2">
+          <p>Faray the Great-Song of Hope</p>
+        </div>
+        <div class="album" data-songs='[
+          {"src": "songs/album3/song1.mp3", "title": "Song 1", "duration": "3:15"},
+          {"src": "songs/album3/song2.mp3", "title": "Song 2", "duration": "4:30"},
+          {"src": "songs/album3/song3.mp3", "title": "Song 3", "duration": "5:00"}
+        ]'>
+          <img src="songs/album3/folder.jpg" alt="Album 3">
+          <p>African Provebrs</p>
+        </div>
+        <div class="album" data-songs='[
+          {"src": "songs/album4/song1.mp3", "title": "Song 1", "duration": "3:00"},
+          {"src": "songs/album4/song2.mp3", "title": "Song 2", "duration": "4:10"},
+          {"src": "songs/album4/song3.mp3", "title": "Song 3", "duration": "4:40"}
+        ]'>
+          <img src="songs/album4/folder.jpg" alt="Album 4">
+          <p>Changes</p>
+        </div>
+    </section>
+    </section>
+
+
+    <section id="gallery">
+      <h3>Gallery</h3>
+      <div class="gallery">
+        <div class="album"
+          data-images='["images/album1/pic (1).jpg", "images/album1/pic (2).jpg", "images/album1/pic (3).jpg", "images/album1/pic (4).jpg", "images/album1/pic (5).jpg", "images/album1/pic (6).jpg", "images/album1/pic (7).jpg", "images/album1/pic (8).jpg", "images/album1/pic (9).jpg", "images/album1/pic (10).jpg", "images/album1/pic (11).jpg", "images/album1/pic (12).jpg", "images/album1/pic (13).jpg", "images/album1/pic (14).jpg", "images/album1/pic (15).jpg", "images/album1/pic (16).jpg", "images/album1/pic (17).jpg", "images/album1/pic (18).jpg", "images/album1/pic (19).jpg", "images/album1/pic (20).jpg", "images/album1/pic (21).jpg", "images/album1/pic (22).jpg", "images/album1/pic (23).jpg", "images/album1/pic (24).jpg", "images/album1/pic (25).jpg", "images/album1/pic (26).jpg", "images/album1/pic (27).jpg", "images/album1/pic (28).jpg", "images/album1/pic (29).jpg", "images/album1/pic (30).jpg", "images/album1/pic (31).jpg", "images/album1/pic (32).jpg", "images/album1/pic (33).jpg" ]'>
+          <img src="images/logo_for_the_great_african_music_revival (1).jpeg" alt="Album 1">
+          <p>Instruments</p>
+        </div>
+        <div class="album"
+          data-images='["images/album2/pic (1).jpg", "images/album2/pic (2).jpg", "images/album2/pic (3).jpg", "images/album2/pic (4).jpg", "images/album2/pic (5).jpg", "images/album2/pic (6).jpg", "images/album2/pic (7).jpg", "images/album2/pic (8).jpg", "images/album2/pic (9).jpg", "images/album2/pic (10).jpg", "images/album2/pic (11).jpg", "images/album2/pic (12).jpg", "images/album2/pic (13).jpg", "images/album2/pic (14).jpg", "images/album2/pic (15).jpg", "images/album2/pic (16).jpg", "images/album2/pic (17).jpg", "images/album2/pic (18).jpg", "images/album2/pic (19).jpg", "images/album2/pic (20).jpg", "images/album2/pic (21).jpg", "images/album2/pic (22).jpg", "images/album2/pic (23).jpg", "images/album2/pic (24).jpg", "images/album2/pic (25).jpg", "images/album2/pic (26).jpg", "images/album2/pic (27).jpg", "images/album2/pic (28).jpg", "images/album2/pic (29).jpg", "images/album2/pic (30).jpg", "images/album2/pic (31).jpg", "images/album2/pic (32).jpg", "images/album2/pic (33).jpg" ]'>
+          <img src="images/logo_for_the_great_african_music_revival (2).jpeg" alt="Album 2">
+          <p>Posters</p>
+        </div>
+        <div class="album"
+          data-images='["images/album3/pic (1).jpg", "images/album3/pic (2).jpg", "images/album3/pic (3).jpg", "images/album3/pic (4).jpg", "images/album3/pic (5).jpg", "images/album3/pic (6).jpg", "images/album3/pic (7).jpg", "images/album3/pic (8).jpg", "images/album3/pic (9).jpg", "images/album3/pic (10).jpg", "images/album3/pic (11).jpg", "images/album3/pic (12).jpg", "images/album3/pic (13).jpg", "images/album3/pic (14).jpg", "images/album3/pic (15).jpg", "images/album3/pic (16).jpg", "images/album3/pic (17).jpg", "images/album3/pic (18).jpg", "images/album3/pic (19).jpg", "images/album3/pic (20).jpg", "images/album3/pic (21).jpg", "images/album3/pic (22).jpg", "images/album3/pic (23).jpg", "images/album3/pic (24).jpg", "images/album3/pic (25).jpg", "images/album3/pic (26).jpg", "images/album3/pic (27).jpg", "images/album3/pic (28).jpg", "images/album3/pic (29).jpg", "images/album3/pic (30).jpg", "images/album3/pic (31).jpg", "images/album3/pic (32).jpg", "images/album3/pic (33).jpg" ]'>
+          <img src="images/logo_for_the_great_african_music_revival (3).jpeg" alt="Album 3">
+          <p>Event</p>
+        </div>
+        <div class="album"
+          data-images='["images/album4/pic (1).jpg", "images/album4/pic (2).jpg", "images/album4/pic (3).jpg", "images/album4/pic (4).jpg", "images/album4/pic (5).jpg", "images/album4/pic (6).jpg", "images/album4/pic (7).jpg", "images/album4/pic (8).jpg", "images/album4/pic (9).jpg", "images/album4/pic (10).jpg", "images/album4/pic (11).jpg", "images/album4/pic (12).jpg", "images/album4/pic (13).jpg", "images/album4/pic (14).jpg", "images/album4/pic (15).jpg", "images/album4/pic (16).jpg", "images/album4/pic (17).jpg", "images/album4/pic (18).jpg", "images/album4/pic (19).jpg", "images/album4/pic (20).jpg", "images/album4/pic (21).jpg", "images/album4/pic (22).jpg", "images/album4/pic (23).jpg", "images/album4/pic (24).jpg", "images/album4/pic (25).jpg", "images/album4/pic (26).jpg", "images/album4/pic (27).jpg", "images/album4/pic (28).jpg", "images/album4/pic (29).jpg", "images/album4/pic (30).jpg", "images/album4/pic (31).jpg", "images/album4/pic (32).jpg", "images/album4/pic (33).jpg" ]'>
+          <img src="images/logo_for_the_great_african_music_revival (4).jpeg" alt="Album 4">
+          <p>Rehearsals</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="videos">
+      <h3>Videos</h3>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 1</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/Jazz_Fusion___Faray_the_Great_Trio(1080p).mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 2</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/Afrojazz_music___live_performances(360p).mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 3</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/Mbira_Music_On_The_Move_with_Faray_the_Great_ft_Siniwa__Mbira_Player_(1080p).mp4"
+                    type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 4</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/Mbira_Music_On_The_Move_with_Faray_the_Great_ft_Siniwa__Mbira_Player_(1080p).mp4"
+                    type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 5</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/20241006_141113.mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 6</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/20241006_141123.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 7</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/DA great.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 8</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/Facebook_1737562756050(360p).mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 10</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source
+                    src="videos/Faray_the_Great_,Tete___Wala_Westheraphy_Ghana__-_Richard_Bona_[Kalabancoro](480p).mp4"
+                    type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 11</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/Faray_the_great_shares_his_journey_as_a_musician(720p).mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 12</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source
+                    src="videos/Mbira___Nhemamusasa_by_Sam_Legend,_David_Chinyanga,_Shekinah_Makwanya___Faray_the_Great(1440p).webm"
+                    type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 13</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/petal_20230112_231009.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 14</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/petal_20241011_093338.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 15</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/petal_20241011_095144.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Video 16</h5>
+                <video controls width="100%" onclick="pauseOtherVideos(this)">
+                  <source src="videos/petal_20250116_213841.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function pauseOtherVideos(currentVideo) {
+        const videos = document.querySelectorAll('video');
+        videos.forEach(video => {
+          if (video !== currentVideo) {
+            video.pause();
+          }
+        });
+      }
+    </script>
+
+    <br>
+    <section id="devTeam">
+      <p>&copy; 2024 The Great African Music Revival. All rights reserved</p>
+      <p>designed by: <a href="mailto:comboboxstudio@gmail.com"><img src="images/combo box.jpg" alt="combo box studio"
+            style="height: 20px; width: auto;"></a></p>
+    </section>
+  </main>
+  <footer>
+
+    <div style="text-align: center;">
+      <img id="logo" src="images/tgamrLogoTRANSP.png" alt="">
+    </div>
+
+    <h6>Quick Links</h6>
+    <p>
+      <a href="index.html">Home</a>
+    </p>
+    <p>
+      <a href="#about">About</a>
+    </p>
+    <p>
+      <a href="#getInvolved">Get involved</a>
+    </p>
+    <p>
+      <a href="#music">Music</a>
+    </p>
+    <p>
+      <a href="#gallery">Gallery</a>
+    </p>
+    <p>
+      <a href="#videos">Videos</a>
+    </p>
+
+    <h6>Follow Us</h6>
+    <p>
+      <a href="https://www.facebook.com/profile.php?id=100068525907000">Facebook</a>
+    </p>
+
+    <p>
+      <a href="https://www.facebook.com/profile.php?id=100068525907000">Instagram</a>
+    </p>
+    <h6>Contact Us</h6>
+    <p>+27684230557</p>
+    <p>+263777790744</p>
+    <h6>Our Location</h6>
+    <p>95 Katherine Street Sandown Sandton 2014 Johannesburg, South Africa</p>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.7276771876363!2d28.058847710702473!3d-26.10780677704079!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95732b39903e83%3A0xa409b1b0e2694ed1!2s95%20Katherine%20St%2C%20Sandown%2C%20Sandton%2C%202031%2C%20South%20Africa!5e0!3m2!1sen!2szw!4v1736534834765!5m2!1sen!2szw"
+      width="600" height="450" style="border: 0" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+  </footer>
+
+  <!-- Optional JavaScript -->
+  <div class="lightbox" id="lightbox">
+    <button class="close-button" onclick="closeLightbox()">✖</button>
+    <button class="prev" onclick="prevImage()">&#10094;</button>
+    <img id="lightbox-img" src="" alt="Lightbox Image">
+    <button class="next" onclick="nextImage()">&#10095;</button>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="music-player" id="music-player">
+    <button class="close-button" onclick="closeMusicPlayer()">✖</button>
+    <ul class="song-list" id="song-list"></ul>
+    <div class="progress-bar" id="progress-bar" onclick="seek(event)">
+      <div></div>
+    </div>
+    <div class="album-controls">
+      <button class="prev-album" onclick="prevAlbum()">&#10094; Prev Album</button>
+      <button class="next-album" onclick="nextAlbum()">Next Album &#10095;</button>
+    </div>
+    <div class="music-player-controls">
+      <button onclick="prevSong()">&#10094;</button>
+      <button id="play-pause" onclick="togglePlayPause()">&#9654;</button>
+      <button onclick="nextSong()">&#10095;</button>
+      <button onclick="toggleMute()">🔊</button>
+    </div>
+    <p id="song-info"></p>
+  </div>
+
+  <script>
+    const albums = document.querySelectorAll('.album');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const musicPlayer = document.getElementById('music-player');
+    const overlay = document.getElementById('overlay');
+    const songList = document.getElementById('song-list');
+    const songInfo = document.getElementById('song-info');
+    const progressBar = document.getElementById('progress-bar').firstElementChild;
+    let currentAlbum = [];
+    let currentIndex = 0;
+    let currentAlbumIndex = 0;
+    let audio = new Audio();
+    let isPlaying = false;
+
+    albums.forEach((album, index) => {
+      album.addEventListener('click', () => {
+        if (album.getAttribute('data-images')) {
+          currentAlbum = JSON.parse(album.getAttribute('data-images'));
+          currentIndex = 0;
+          lightboxImg.src = currentAlbum[currentIndex];
+          lightbox.style.display = 'flex';
+          overlay.style.display = 'block';
+          albums.forEach(image => image.querySelector('img').classList.add('dimmed'));
+          album.querySelector('img').classList.remove('dimmed');
+        } else if (album.getAttribute('data-songs')) {
+          currentAlbum = JSON.parse(album.getAttribute('data-songs'));
+          currentIndex = 0;
+          currentAlbumIndex = index;
+          playSong();
+          musicPlayer.style.backgroundImage = `url(${album.querySelector('img').src})`;
+          musicPlayer.style.display = 'flex';
+          overlay.style.display = 'block';
+          albums.forEach(image => image.querySelector('img').classList.add('dimmed'));
+          album.querySelector('img').classList.remove('dimmed');
+          updateSongList();
+        }
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+      overlay.style.display = 'none';
+      albums.forEach(image => image.querySelector('img').classList.remove('dimmed'));
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentAlbum.length - 1;
+      lightboxImg.src = currentAlbum[currentIndex];
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex < currentAlbum.length - 1) ? currentIndex + 1 : 0;
+      lightboxImg.src = currentAlbum[currentIndex];
+    }
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target !== lightboxImg && e.target.tagName !== 'BUTTON') {
+        closeLightbox();
+      }
+    });
+
+    function playSong() {
+      audio.src = currentAlbum[currentIndex].src;
+      audio.play();
+      isPlaying = true;
+      document.getElementById('play-pause').textContent = '⏸';
+      songInfo.textContent = `${currentAlbum[currentIndex].title} - ${currentAlbum[currentIndex].duration}`;
+      audio.addEventListener('timeupdate', updateProgressBar);
+      highlightCurrentSong();
+    }
+
+    function togglePlayPause() {
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        document.getElementById('play-pause').textContent = '▶️';
+      } else {
+        audio.play();
+        isPlaying = true;
+        document.getElementById('play-pause').textContent = '⏸';
+      }
+    }
+
+    function prevSong() {
+      currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentAlbum.length - 1;
+      playSong();
+    }
+
+    function nextSong() {
+      currentIndex = (currentIndex < currentAlbum.length - 1) ? currentIndex + 1 : 0;
+      playSong();
+    }
+
+    function toggleMute() {
+      audio.muted = !audio.muted;
+      document.querySelector('.music-player-controls button:nth-child(4)').textContent = audio.muted ? '🔇' : '🔊';
+    }
+
+    function updateProgressBar() {
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressBar.style.width = `${progress}%`;
+    }
+
+    function seek(event) {
+      const percent = event.offsetX / event.target.offsetWidth;
+      audio.currentTime = percent * audio.duration;
+    }
+
+    function updateSongList() {
+      songList.innerHTML = '';
+      currentAlbum.forEach((song, index) => {
+        const li = document.createElement('li');
+        li.textContent = song.title;
+        li.addEventListener('click', () => {
+          currentIndex = index;
+          playSong();
+        });
+        songList.appendChild(li);
+      });
+      highlightCurrentSong();
+    }
+
+    function highlightCurrentSong() {
+      const lis = songList.querySelectorAll('li');
+      lis.forEach((li, index) => {
+        li.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    function prevAlbum() {
+      currentAlbumIndex = (currentAlbumIndex > 0) ? currentAlbumIndex - 1 : albums.length - 1;
+      albums[currentAlbumIndex].click();
+    }
+
+    function nextAlbum() {
+      currentAlbumIndex = (currentAlbumIndex < albums.length - 1) ? currentAlbumIndex + 1 : 0;
+      albums[currentAlbumIndex].click();
+    }
+
+    function closeMusicPlayer() {
+      musicPlayer.style.display = 'none';
+      overlay.style.display = 'none';
+      albums.forEach(image => image.querySelector('img').classList.remove('dimmed'));
+      audio.pause();
+      isPlaying = false;
+    }
+  </script>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
